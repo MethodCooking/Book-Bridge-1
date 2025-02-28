@@ -1,6 +1,6 @@
 // Configuration
 const CONFIG = {
-    cookingAppUrl: 'https://chatgpt.com/g/g-20Ce4z9Ee-method-cooking', // Replace with actual cooking app URL
+    bookBridgeUrl: 'https://chat.openai.com/g/g-Qf4YngQAZ-book-bridge', // Book Bridge GPT URL
     copyButtonText: 'Copy Prompt',
     copiedButtonText: 'Copied!',
     copyTimeout: 2000, // Time in ms to show "Copied!" text
@@ -11,10 +11,24 @@ const copyButton = document.getElementById('copy-button');
 const appButton = document.getElementById('app-button');
 const promptText = document.getElementById('prompt-text');
 
+// Text cleaning function
+function cleanText(text) {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = text;
+    
+    let cleanedText = tempDiv.textContent;
+    return cleanedText
+        .replace(/[\u200B-\u200D\uFEFF]/g, '') // Remove zero-width spaces
+        .replace(/\r?\n/g, '\n') // Normalize line endings
+        .replace(/[^\x20-\x7E\n]/g, '') // Remove any non-printable characters
+        .trim();
+}
+
 // Copy functionality
 async function copyPrompt() {
     try {
-        await navigator.clipboard.writeText(promptText.textContent);
+        const textToCopy = cleanText(promptText.innerText);
+        await navigator.clipboard.writeText(textToCopy);
         
         // Visual feedback for copy success
         copyButton.classList.add('copied');
@@ -38,7 +52,7 @@ async function copyPrompt() {
 
 // Navigation functionality
 function navigateToCookingApp() {
-    window.open(CONFIG.cookingAppUrl, '_blank');
+    window.open(CONFIG.bookBridgeUrl, '_blank');
 }
 
 // Event Listeners
