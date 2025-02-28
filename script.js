@@ -33,13 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     appButton.addEventListener('click', function() {
-        // First copy the text again to ensure it's fresh
-        const textToCopy = cleanText(promptText.innerText);
-        navigator.clipboard.writeText(textToCopy);
-        
-        // Small delay before opening the window
-        setTimeout(() => {
-            window.open('https://chat.openai.com/g/g-20Ce4z9Ee-method-cooking', '_blank');
-        }, 100);
+        // Just open the window, no extra copying
+        window.open('https://chat.openai.com/g/g-20Ce4z9Ee-method-cooking', '_blank');
     });
 });
