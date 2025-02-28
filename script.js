@@ -33,6 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     appButton.addEventListener('click', function() {
-        window.open('https://chat.openai.com/g/g-20Ce4z9Ee-method-cooking?gptId=g-20Ce4z9Ee-method-cooking', '_blank');
+        window.open('chatgpt://g-20Ce4z9Ee-method-cooking', '_blank');
     });
 });
