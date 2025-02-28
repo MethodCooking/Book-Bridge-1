@@ -33,7 +33,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     appButton.addEventListener('click', function() {
-        // Just open the window, no extra copying
-        window.open('https://chat.openai.com/g/g-20Ce4z9Ee-method-cooking', '_blank');
+        // Try to detect if user is on iOS
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const url = isIOS 
+            ? 'https://apps.apple.com/app/chatgpt/id6448311069?gptId=g-20Ce4z9Ee-method-cooking'
+            : 'https://chat.openai.com/g/g-20Ce4z9Ee-method-cooking';
+            
+        window.open(url, '_blank');
     });
 });
