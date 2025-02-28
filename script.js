@@ -4,9 +4,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const promptText = document.getElementById('prompt-text');
     const buttonText = copyButton.querySelector('.button-text');
 
+    function cleanText(text) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = text;
+        let cleanedText = tempDiv.textContent;
+        return cleanedText
+            .replace(/[\u200B-\u200D\uFEFF]/g, '')
+            .replace(/\r?\n/g, '\n')
+            .replace(/[^\x20-\x7E\n]/g, '')
+            .trim();
+    }
+
     copyButton.addEventListener('click', async function() {
         try {
-            await navigator.clipboard.writeText(promptText.textContent);
+            const textToCopy = cleanText(promptText.innerText);
+            await navigator.clipboard.writeText(textToCopy);
             copyButton.classList.add('copied');
             buttonText.textContent = 'Copied!';
             appButton.disabled = false;
@@ -21,8 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     appButton.addEventListener('click', function() {
-        console.log('Opening Book Bridge...');  // Add logging
-        const url = 'https://chat.openai.com/g/g-Qf4YngQAZ-book-bridge';
-        window.open(url, '_blank');
+        window.open('https://chat.openai.com/g/g-Qf4YngQAZ-book-bridge', '_blank');
     });
 });
