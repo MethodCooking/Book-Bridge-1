@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const CONFIG = {
+        appUrl: 'chatgpt://g/g-20Ce4z9Ee-method-cooking',
+        webUrl: 'https://chat.openai.com/g/g-20Ce4z9Ee-method-cooking',
+        copyTimeout: 2000
+    };
+
     const copyButton = document.getElementById('copy-button');
     const appButton = document.getElementById('app-button');
     const promptText = document.getElementById('prompt-text');
@@ -26,13 +32,19 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 copyButton.classList.remove('copied');
                 buttonText.textContent = 'Copy Prompt';
-            }, 2000);
+            }, CONFIG.copyTimeout);
         } catch (err) {
             console.error('Failed to copy text: ', err);
         }
     });
 
     appButton.addEventListener('click', function() {
-        window.open('chatgpt://g-20Ce4z9Ee-method-cooking', '_blank');
+        // Try to open in ChatGPT app first
+        window.location.href = CONFIG.appUrl;
+        
+        // Fallback to web version after a short delay
+        setTimeout(() => {
+            window.open(CONFIG.webUrl, '_blank');
+        }, 1000);
     });
 });
