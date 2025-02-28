@@ -33,6 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     appButton.addEventListener('click', function() {
-        window.open('https://chat.openai.com/g/g-Qf4YngQAZ-book-bridge', '_blank');
+        window.open('https://chat.openai.com/g/g-20Ce4z9Ee-method-cooking', '_blank');  // Fixed URL format
     });
 });
