@@ -1,9 +1,9 @@
 // Configuration
 const CONFIG = {
-    bookBridgeUrl: 'https://chat.openai.com/g/g-Qf4YngQAZ-book-bridge', // Book Bridge GPT URL
+    bookBridgeUrl: 'https://chat.openai.com/g/g-Qf4YngQAZ-book-bridge',
     copyButtonText: 'Copy Prompt',
     copiedButtonText: 'Copied!',
-    copyTimeout: 2000, // Time in ms to show "Copied!" text
+    copyTimeout: 2000,
 };
 
 // DOM Elements
@@ -18,9 +18,9 @@ function cleanText(text) {
     
     let cleanedText = tempDiv.textContent;
     return cleanedText
-        .replace(/[\u200B-\u200D\uFEFF]/g, '') // Remove zero-width spaces
-        .replace(/\r?\n/g, '\n') // Normalize line endings
-        .replace(/[^\x20-\x7E\n]/g, '') // Remove any non-printable characters
+        .replace(/[\u200B-\u200D\uFEFF]/g, '')
+        .replace(/\r?\n/g, '\n')
+        .replace(/[^\x20-\x7E\n]/g, '')
         .trim();
 }
 
@@ -30,15 +30,12 @@ async function copyPrompt() {
         const textToCopy = cleanText(promptText.innerText);
         await navigator.clipboard.writeText(textToCopy);
         
-        // Visual feedback for copy success
         copyButton.classList.add('copied');
         const buttonText = copyButton.querySelector('.button-text');
         buttonText.textContent = CONFIG.copiedButtonText;
         
-        // Enable the app button
         appButton.disabled = false;
         
-        // Reset copy button after timeout
         setTimeout(() => {
             copyButton.classList.remove('copied');
             buttonText.textContent = CONFIG.copyButtonText;
@@ -51,13 +48,13 @@ async function copyPrompt() {
 }
 
 // Navigation functionality
-function navigateToCookingApp() {
+function navigateToBookBridge() {  // Renamed this function
     window.open(CONFIG.bookBridgeUrl, '_blank');
 }
 
 // Event Listeners
 copyButton.addEventListener('click', copyPrompt);
-appButton.addEventListener('click', navigateToCookingApp);
+appButton.addEventListener('click', navigateToBookBridge);  // Updated here too
 
 // Optional: Add keyboard accessibility
 copyButton.addEventListener('keydown', (e) => {
@@ -71,7 +68,7 @@ appButton.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         if (!appButton.disabled) {
-            navigateToCookingApp();
+            navigateToBookBridge();  // And here
         }
     }
 });
